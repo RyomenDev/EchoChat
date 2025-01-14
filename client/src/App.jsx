@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import conf from "./conf/conf";
+import ChatBox from "./Components/ChatBox";
+import SendMessage from "./Components/SendMessage";
 
 const App = () => {
   const [message, setMessage] = useState("");
@@ -31,7 +34,6 @@ const App = () => {
       setResponses((prev) => [...prev, event.data]);
     };
 
-    // Cleanup WebSocket on component unmount
     return () => {
       if (ws.current) {
         ws.current.close();
@@ -40,12 +42,35 @@ const App = () => {
   }, []);
 
   const sendMessage = () => {
-    if (message.trim() && ws.current.readyState === WebSocket.OPEN) {
-      console.log(`Sending message: ${message}`);
-      ws.current.send(message);
-      setMessage("");
-    } else if (ws.current.readyState !== WebSocket.OPEN) {
-      console.error("WebSocket is not open");
+    if (message.trim()) {
+      if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+        try {
+          console.log(`Sending message: ${message}`);
+          ws.current.send(message);
+          axios
+            .post("http://localhost:1337/api/chat-messages", {
+              data: {
+                message: message,
+              },
+            })
+            .then((response) => {
+              console.log(
+                "Message sent to the server successfully",
+                response.data
+              );
+            })
+            .catch((error) => {
+              console.error("Error sending message to the server:", error);
+            });
+          setMessage("");
+        } catch (error) {
+          console.error("Error sending message:", error);
+        }
+      } else {
+        console.error("WebSocket is not open.");
+      }
+    } else {
+      console.warn("Message is empty, nothing to send.");
     }
   };
 
@@ -57,42 +82,23 @@ const App = () => {
   }, [responses]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 p-4">
       <h1 className="text-4xl font-bold mb-6 text-blue-600">EchoChat</h1>
-      <div className="flex flex-col w-full max-w-lg space-y-4">
-        <div
-          className="border border-gray-300 rounded-lg p-4 bg-white h-80 overflow-y-auto shadow"
-          ref={chatContainerRef}
-        >
-          {responses.map((res, idx) => (
-            <p key={idx} className="text-gray-700 break-words">
-              {res}
-            </p>
-          ))}
-        </div>
-        <div className="text-gray-500 text-sm">
+      <div className="flex flex-col w-full max-w-lg space-y-4 bg-white rounded-xl shadow-lg p-4">
+        <ChatBox responses={responses} />
+
+        <div className="text-gray-500 text-sm mb-2">
           Status:{" "}
           <span className={isConnected ? "text-green-500" : "text-red-500"}>
             {isConnected ? "Connected" : "Disconnected"}
           </span>
         </div>
-        <div className="flex space-x-2">
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            className="border border-gray-300 rounded-lg p-2 flex-1"
-            placeholder="Type your message..."
-            aria-label="Message input"
-          />
-          <button
-            onClick={sendMessage}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-            aria-label="Send message"
-          >
-            Send
-          </button>
-        </div>
+
+        <SendMessage
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+        />
       </div>
     </div>
   );
