@@ -9,26 +9,39 @@ const App = () => {
   const ws = useRef(null);
 
   useEffect(() => {
-    ws.current = new WebSocket(`ws:${conf.SERVER_API_URL}`);
+    ws.current = new WebSocket(`ws://${conf.SERVER_API_URL}`);
 
-    ws.current.onopen = () => setIsConnected(true);
-    ws.current.onclose = () => setIsConnected(false);
+    ws.current.onopen = () => {
+      console.log("WebSocket connection established");
+      setIsConnected(true);
+    };
+
+    ws.current.onclose = () => {
+      console.log("WebSocket connection closed");
+      setIsConnected(false);
+    };
+
     ws.current.onerror = (error) => {
       console.error("WebSocket error:", error);
       setIsConnected(false);
     };
 
     ws.current.onmessage = (event) => {
+      console.log("Message received:", event.data);
       setResponses((prev) => [...prev, event.data]);
     };
 
+    // Cleanup WebSocket on component unmount
     return () => {
-      ws.current.close();
+      if (ws.current) {
+        ws.current.close();
+      }
     };
   }, []);
 
   const sendMessage = () => {
     if (message.trim() && ws.current.readyState === WebSocket.OPEN) {
+      console.log(`Sending message: ${message}`);
       ws.current.send(message);
       setMessage("");
     } else if (ws.current.readyState !== WebSocket.OPEN) {
