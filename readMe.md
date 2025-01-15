@@ -9,10 +9,10 @@ This is a real-time chat application built using a frontend stack of your choice
 ## Features
 
 1. **Backend Setup**: Powered by Strapi, an open-source headless CMS.
-2. **User Authentication**: Sign up, log in, and log out functionalities using Google or GitHub OAuth.
+2. **User Authentication**: Sign up, log in, and log out functionalities using Google or GitHub OAuth using strapi.
 3. **WebSocket Communication**: Real-time message exchange between the user and the server.
 4. **Local Database Storage**: Uses SQLite via Strapi for storing user and chat data. <!-- session -->
-5. **Responsive Design**: Fully optimized for desktop, tablet, and mobile devices.
+5. **Responsive Design**: Fully optimized for desktop, tablet devices.
 6. **Optional Enhancements**: Add advanced features for better user experience.
 
 ## Tech Stack

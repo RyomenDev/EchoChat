@@ -4,7 +4,8 @@
   "info": {
     "singularName": "chat-session",
     "pluralName": "chat-sessions",
-    "displayName": "ChatSession"
+    "displayName": "ChatSession",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,14 +15,26 @@
     "SessionID": {
       "type": "uid"
     },
-    "userId": {
-      "type": "biginteger"
-    },
     "messages": {
       "type": "text"
     },
-    "TimeStamp": {
+    "SessionStart": {
       "type": "datetime"
+    },
+    "SessionEnd": {
+      "type": "datetime"
+    },
+    "SessionStatus": {
+      "type": "enumeration",
+      "enum": [
+        "Close",
+        "Open"
+      ]
+    },
+    "User": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

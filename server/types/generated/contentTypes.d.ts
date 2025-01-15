@@ -431,6 +431,7 @@ export interface ApiChatMessageChatMessage extends Struct.CollectionTypeSchema {
 export interface ApiChatSessionChatSession extends Struct.CollectionTypeSchema {
   collectionName: 'chat_sessions';
   info: {
+    description: '';
     displayName: 'ChatSession';
     pluralName: 'chat-sessions';
     singularName: 'chat-session';
@@ -450,12 +451,17 @@ export interface ApiChatSessionChatSession extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     messages: Schema.Attribute.Text;
     publishedAt: Schema.Attribute.DateTime;
+    SessionEnd: Schema.Attribute.DateTime;
     SessionID: Schema.Attribute.UID;
-    TimeStamp: Schema.Attribute.DateTime;
+    SessionStart: Schema.Attribute.DateTime;
+    SessionStatus: Schema.Attribute.Enumeration<['Close', 'Open']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    userId: Schema.Attribute.BigInteger;
+    User: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
