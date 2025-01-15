@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import LoginRedirect from "./pages/LoginRedirect";
 import ChatConnect from "./pages/ChatConnect";
+import Header from "./components/Header";
 
 import conf from "./conf/conf";
 const backendUrl = conf.BACKEND_API_URL;
@@ -53,18 +54,21 @@ const App = () => {
   }
 
   return (
-    <Router>
-      <Routes>
-        <Route
-          exact
-          path="/connect/:providerName/redirect"
-          element={<LoginRedirect />}
-        />
-        {/* <Route exact path="/" element={<Home />} /> */}
-        {/* <Route exact path="/chat" element={<ChatConnect />} /> */}
-        <Route exact path="/" element={<ChatConnect />} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Header />
+        <Routes>
+          <Route
+            exact
+            path="/connect/:providerName/redirect"
+            element={<LoginRedirect />}
+          />
+          <Route exact path="/" element={<Home />} />
+          {/* <Route exact path="/chat" element={<ChatConnect />} /> */}
+          {/* <Route exact path="/" element={<ChatConnect />} /> */}
+        </Routes>
+      </Router>
+    </>
   );
 };
 

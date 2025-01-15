@@ -3,16 +3,20 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import conf from "../conf/conf";
+import { login as authLogin } from "../store/authSlice";
+import { useDispatch } from "react-redux";
 
 // const backendUrl = "http://localhost:1337";
 const backendUrl = conf.BACKEND_API_URL;
 
 const LoginRedirect = (props) => {
-  const [text, setText] = useState("Loading...");
-  const [loading, setLoading] = useState(true); // State for loading screen
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
   const params = useParams();
-  const navigate = useNavigate();
+
+  const [text, setText] = useState("Loading...");
+  const [loading, setLoading] = useState(true); // State for loading screen
 
   useEffect(() => {
     // Function to handle login with Strapi
@@ -22,11 +26,14 @@ const LoginRedirect = (props) => {
           `${backendUrl}/api/auth/${params.providerName}/callback${location.search}`
         );
 
-        console.log(response);
+        // console.log("response", response);
 
         if (response.status === 200) {
           // Successfully logged in with Strapi
           const { jwt, user } = response.data;
+          //   console.log("user", user);
+
+          dispatch(authLogin(user));
 
           // Save JWT and user data to local storage
           localStorage.setItem("jwt", jwt);

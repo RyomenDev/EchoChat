@@ -1,6 +1,8 @@
 import "./styles.css";
 import { useState } from "react";
 import conf from "../conf/conf";
+import { useDispatch } from "react-redux";
+import { logout } from "../store/authSlice";
 
 // const backendUrl = "http://localhost:1337";
 const backendUrl = conf.BACKEND_API_URL;
@@ -25,12 +27,14 @@ const LogoutButton = (props) => (
 );
 
 const Home = (props) => {
+  const dispatch = useDispatch();
   const [isLogged, setIsLogged] = useState(!!localStorage.getItem("jwt"));
 
   const logout = (e) => {
     e.preventDefault();
     localStorage.removeItem("jwt");
     localStorage.removeItem("username");
+    dispatch(logout());
     setIsLogged(false);
   };
 
@@ -60,7 +64,7 @@ const Home = (props) => {
 
   return (
     <>
-      <section className="">
+      <section className="" style={{ maxHeight: "100vh" }}>
         <div className=""></div>
         {Array.from({ length: 200 }).map((_, index) => (
           <span key={index} className=""></span>
