@@ -32,7 +32,7 @@ const Header = () => {
         </div>
       </div>
 
-      {userName && <div> Hi {userName}</div>}
+      {authStatus && <div> Hi {userName}</div>}
 
       {/* Search Bar */}
       <div className="w-full md:w-1/4 flex justify-center mb-4 md:mb-0">
