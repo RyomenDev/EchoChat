@@ -74,19 +74,6 @@ const Home = (props) => {
           </div>
         </div>
       </section>
-      {/* <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 p-6">
-        <div className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full text-center">
-          <h1 className="text-3xl font-semibold text-gray-800 mb-4">
-            Welcome to Strapi ChatRoom
-          </h1>
-          <p className="text-lg text-gray-600 mb-6">
-            Join the conversation, meet new people, and make connections in one
-            shared room.
-          </p>
-          <p className="text-lg font-medium text-gray-700 mb-6">{text}</p>
-          {buttons}
-        </div>
-      </div> */}
     </>
   );
 };

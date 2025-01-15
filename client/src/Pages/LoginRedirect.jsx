@@ -1,3 +1,4 @@
+import "./styles.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
@@ -22,7 +23,6 @@ const LoginRedirect = (props) => {
         );
 
         console.log(response);
-        
 
         if (response.status === 200) {
           // Successfully logged in with Strapi
