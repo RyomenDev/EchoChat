@@ -22,6 +22,9 @@ This is a real-time chat application built using a frontend stack of your choice
 - **WebSocket**: For real-time communication.
 - **Authentication**: Google/GitHub OAuth via Strapi.
 
+[![LoginPage](LoginPage.png)](url)
+
+
 ## Getting Started
 
 ### Prerequisites
