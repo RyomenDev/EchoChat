@@ -8,34 +8,36 @@ const Header = () => {
   const userData = useSelector((state) => state.auth.userData);
   const userName = userData?.username;
 
-//   console.log(userData);
-
   const handleLogoClick = () => {
     navigate("/");
   };
 
   return (
-    <header className="sticky top-0 left-0 w-full z-50 flex items-center justify-between py-2 px-6 bg-black text-white shadow-lg border-b-4 border-[#0f0]">
+    <header className="sticky top-0 left-0 w-full z-50 flex flex-wrap items-center justify-between py-3 px-4 md:px-6 bg-black text-white shadow-lg border-b-4 border-[#0f0]">
       {/* Logo Section */}
       <div
-        className="flex items-center justify-center cursor-pointer gap-3 hover:shadow-lg rounded-lg transition-all duration-300"
+        className="flex items-center gap-3 cursor-pointer"
         onClick={handleLogoClick}
       >
         <img
           src={Logo}
           alt="EchoChat logo"
-          className="w-auto h-12 md:h-16 transition-transform duration-300 hover:scale-105 hover:opacity-80"
+          className="w-10 h-10 md:w-12 md:h-12 transition-transform duration-300 hover:scale-105 hover:opacity-80"
         />
-
-        <div className="ml-2 text-2xl font-semibold text-white md:text-3xl hover:text-indigo-400 transition-all duration-300">
+        <div className="text-lg font-semibold md:text-2xl hover:text-indigo-400 transition-all duration-300">
           EchoChat
         </div>
       </div>
 
-      {authStatus && <div> Hi {userName}</div>}
+      {/* User Greeting */}
+      {authStatus && (
+        <div className="hidden md:block text-sm md:text-base font-medium">
+          Hi, {userName}
+        </div>
+      )}
 
       {/* Search Bar */}
-      <div className="w-full md:w-1/4 flex justify-center mb-4 md:mb-0">
+      <div className="w-full mt-3 md:mt-0 md:w-1/4 flex justify-center">
         <form className="relative w-full max-w-lg">
           <input
             id="search"
@@ -71,6 +73,13 @@ const Header = () => {
           </button>
         </form>
       </div>
+
+      {/* Mobile User Greeting */}
+      {authStatus && (
+        <div className="block md:hidden text-sm font-medium mt-2">
+          Hi, {userName}
+        </div>
+      )}
     </header>
   );
 };
