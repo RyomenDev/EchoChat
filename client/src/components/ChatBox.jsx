@@ -1,6 +1,18 @@
+import { useEffect, useRef } from "react";
+
 const ChatBox = ({ responses, userId }) => {
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [responses]);
+
   return (
     <div
+      ref={chatContainerRef}
       className="border-gray-300 rounded-3xl p-4 bg-white h-96 overflow-y-auto shadow-lg space-y-4 flex flex-col"
       aria-live="polite"
     >
