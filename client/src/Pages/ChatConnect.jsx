@@ -53,6 +53,16 @@ const ChatConnect = () => {
 
   const sendMessage = () => {
     if (message.trim()) {
+      setResponses((prev) => [
+        ...prev,
+        {
+          message: message,
+          sender: userId,
+        },
+      ]);
+
+      // Reset the input field
+      setMessage("");
       if (ws.current && ws.current.readyState === WebSocket.OPEN) {
         try {
           //   console.log(`Sending message: ${message}, ${userId}`);
@@ -69,13 +79,13 @@ const ChatConnect = () => {
               //     "Message sent to the server successfully",
               //     response.data.data
               //   );
-              setResponses((prev) => [
-                ...prev,
-                {
-                  message: response.data.data.message,
-                  sender: response.data.data.uid,
-                },
-              ]);
+              //   setResponses((prev) => [
+              //     ...prev,
+              //     {
+              //       message: response.data.data.message,
+              //       sender: response.data.data.uid,
+              //     },
+              //   ]);
             })
             .catch((error) => {
               console.error("Error sending message to the server:", error);
