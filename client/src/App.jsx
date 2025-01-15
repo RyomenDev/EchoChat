@@ -64,7 +64,7 @@ const App = () => {
             element={<LoginRedirect />}
           />
           <Route exact path="/" element={<Home />} />
-          {/* <Route exact path="/chat" element={<ChatConnect />} /> */}
+          <Route exact path="/chat" element={<ChatConnect />} />
           {/* <Route exact path="/" element={<ChatConnect />} /> */}
         </Routes>
       </Router>

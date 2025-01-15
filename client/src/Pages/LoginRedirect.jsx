@@ -91,9 +91,9 @@ const LoginRedirect = (props) => {
           <span key={index} className=""></span>
         ))}
 
-        <div className="signin">
-          <div className="content">
-            <p className=" text-center text-xl text-[#0f0]">{text}</p>
+        <div className="signin" style={{ border: "", borderRadius: "999px" }}>
+          <div className="content ">
+            <p className=" text-center text-xl text-[#0f0] ">{text}</p>
           </div>
         </div>
       </section>
