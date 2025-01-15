@@ -37,8 +37,8 @@ const LoginRedirect = (props) => {
           );
           setLoading(false); // Hide loading screen
 
-          // Redirect to the homepage after 3 seconds
-          setTimeout(() => navigate("/"), 3000);
+          //   Redirect to the homepage after 2 seconds
+          setTimeout(() => navigate("/"), 2000);
         } else {
           throw new Error(
             `Couldn't log in to Strapi. Status: ${response.status}`
@@ -57,23 +57,40 @@ const LoginRedirect = (props) => {
   if (loading) {
     // Display loading screen while fetching data
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <div className="text-center bg-white p-6 rounded-xl shadow-lg max-w-md w-full">
-          <h2 className="text-xl font-semibold text-gray-700">Logging in...</h2>
-          <div className="mt-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 mx-auto"></div>
+      <>
+        <section className="">
+          <div className=""></div>
+          {Array.from({ length: 200 }).map((_, index) => (
+            <span key={index} className=""></span>
+          ))}
+
+          <div className="signin" style={{ border: "", borderRadius: "999px" }}>
+            <div className="content ">
+              <div className="mt-4 flex justify-center items-center ">
+                <div className="animate-spin rounded-full h-24 w-24 border-t-4 border-blue-500 border-solid mx-auto shadow-lg"></div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </section>
+      </>
     );
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="text-center bg-white p-6 rounded-xl shadow-lg max-w-md w-full">
-        <h2 className="text-xl font-semibold text-gray-700">{text}</h2>
-      </div>
-    </div>
+    <>
+      <section className="">
+        <div className=""></div>
+        {Array.from({ length: 200 }).map((_, index) => (
+          <span key={index} className=""></span>
+        ))}
+
+        <div className="signin">
+          <div className="content">
+            <p className=" text-center text-xl text-[#0f0]">{text}</p>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 

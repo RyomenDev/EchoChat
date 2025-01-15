@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import LoginRedirect from "./pages/LoginRedirect";
+import ChatConnect from "./pages/ChatBox";
 
 import conf from "./conf/conf";
 const backendUrl = conf.BACKEND_API_URL;
@@ -60,6 +61,7 @@ const App = () => {
           element={<LoginRedirect />}
         />
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/chat" element={<ChatConnect />} />
       </Routes>
     </Router>
   );
