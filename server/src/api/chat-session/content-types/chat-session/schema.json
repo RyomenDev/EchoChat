@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "chat_sessions",
+  "info": {
+    "singularName": "chat-session",
+    "pluralName": "chat-sessions",
+    "displayName": "ChatSession"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "SessionID": {
+      "type": "uid"
+    },
+    "userId": {
+      "type": "biginteger"
+    },
+    "messages": {
+      "type": "text"
+    },
+    "TimeStamp": {
+      "type": "datetime"
+    }
+  }
+}

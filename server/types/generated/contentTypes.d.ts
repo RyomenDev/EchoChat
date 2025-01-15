@@ -428,6 +428,37 @@ export interface ApiChatMessageChatMessage extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiChatSessionChatSession extends Struct.CollectionTypeSchema {
+  collectionName: 'chat_sessions';
+  info: {
+    displayName: 'ChatSession';
+    pluralName: 'chat-sessions';
+    singularName: 'chat-session';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::chat-session.chat-session'
+    > &
+      Schema.Attribute.Private;
+    messages: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    SessionID: Schema.Attribute.UID;
+    TimeStamp: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    userId: Schema.Attribute.BigInteger;
+  };
+}
+
 export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
@@ -970,6 +1001,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
       'api::chat-message.chat-message': ApiChatMessageChatMessage;
+      'api::chat-session.chat-session': ApiChatSessionChatSession;
       'api::global.global': ApiGlobalGlobal;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
