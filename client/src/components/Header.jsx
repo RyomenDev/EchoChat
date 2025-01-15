@@ -8,7 +8,7 @@ const Header = () => {
   const userData = useSelector((state) => state.auth.userData);
   const userName = userData?.username;
 
-  console.log(userData);
+//   console.log(userData);
 
   const handleLogoClick = () => {
     navigate("/");

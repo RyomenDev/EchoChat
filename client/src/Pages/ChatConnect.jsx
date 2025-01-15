@@ -4,8 +4,13 @@ import axios from "axios";
 import conf from "../conf/conf";
 import ChatBox from "../Components/ChatBox";
 import SendMessage from "../Components/SendMessage";
+import { useSelector } from "react-redux";
 
 const ChatConnect = () => {
+  const userData = useSelector((state) => state.auth.userData);
+  const userId = userData.id;
+  //   console.log("userData", userId);
+
   const [message, setMessage] = useState("");
   const [responses, setResponses] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
@@ -46,19 +51,20 @@ const ChatConnect = () => {
     if (message.trim()) {
       if (ws.current && ws.current.readyState === WebSocket.OPEN) {
         try {
-          console.log(`Sending message: ${message}`);
+          //   console.log(`Sending message: ${message}, ${userId}`);
           ws.current.send(message);
           axios
             .post("http://localhost:1337/api/chat-messages", {
               data: {
                 message: message,
+                uid: userId,
               },
             })
             .then((response) => {
-              console.log(
-                "Message sent to the server successfully",
-                response.data
-              );
+            //   console.log(
+            //     "Message sent to the server successfully",
+            //     response.data
+            //   );
             })
             .catch((error) => {
               console.error("Error sending message to the server:", error);

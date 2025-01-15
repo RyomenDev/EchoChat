@@ -4,7 +4,8 @@
   "info": {
     "singularName": "chat-message",
     "pluralName": "chat-messages",
-    "displayName": "Chat-message"
+    "displayName": "Chat-message",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -13,6 +14,10 @@
   "attributes": {
     "message": {
       "type": "text"
+    },
+    "uid": {
+      "required": true,
+      "type": "biginteger"
     }
   }
 }

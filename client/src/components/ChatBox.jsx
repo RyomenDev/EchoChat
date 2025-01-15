@@ -1,7 +1,7 @@
 const ChatBox = ({ responses }) => {
   return (
     <div
-      className="border border-gray-300 rounded-lg p-4 bg-white h-96 overflow-y-auto shadow-lg space-y-4 flex flex-col-reverse"
+      className=" border-gray-300 rounded-3xl p-4 bg-white h-96 overflow-y-auto shadow-lg space-y-4 flex flex-col-reverse"
       aria-live="polite"
     >
       {responses.map((res, idx) => (
