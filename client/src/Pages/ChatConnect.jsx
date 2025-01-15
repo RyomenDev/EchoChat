@@ -35,9 +35,13 @@ const ChatConnect = () => {
       setIsConnected(false);
     };
 
+    // ws.current.onmessage = (event) => {
+    //   //   console.log("Message received:", event.data);
+    //   setResponses((prev) => [...prev, event.data]);
+    // };
     ws.current.onmessage = (event) => {
-      console.log("Message received:", event.data);
-      setResponses((prev) => [...prev, event.data]);
+      //   console.log("Message received:", event.data);
+      setResponses((prev) => [...prev, { message: event.data, sender: 0 }]);
     };
 
     return () => {
@@ -61,10 +65,17 @@ const ChatConnect = () => {
               },
             })
             .then((response) => {
-            //   console.log(
-            //     "Message sent to the server successfully",
-            //     response.data
-            //   );
+              //   console.log(
+              //     "Message sent to the server successfully",
+              //     response.data.data
+              //   );
+              setResponses((prev) => [
+                ...prev,
+                {
+                  message: response.data.data.message,
+                  sender: response.data.data.uid,
+                },
+              ]);
             })
             .catch((error) => {
               console.error("Error sending message to the server:", error);
@@ -115,7 +126,8 @@ const ChatConnect = () => {
               EchoChat
             </h1>
             <div className="flex flex-col w-full max-w-lg space-y-4 bg-white rounded-xl  p-4">
-              <ChatBox responses={responses} />
+              {/* <ChatBox responses={responses} /> */}
+              <ChatBox responses={responses} userId={userId} />
 
               <div className=" text-gray-500 text-sm mb-2">
                 Status:{" "}
